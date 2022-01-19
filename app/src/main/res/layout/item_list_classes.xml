@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    android:weightSum="120"
+    android:gravity="center">
+
+
+    <TextView
+        android:id="@+id/txt_item_list_classes_period"
+        android:layout_width="0dp"
+        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textStyle="bold"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txt_item_list_classes_course"
+        android:layout_width="0dp"
+        android:layout_weight="20"
+        android:layout_height="wrap_content"
+        android:text="B.Tech"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txt_item_list_classes_branch"
+        android:layout_width="0dp"
+        android:layout_weight="15"
+        android:layout_height="wrap_content"
+        android:text="CSE"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txt_item_list_classes_semester"
+        android:layout_width="0dp"
+        android:layout_weight="10"
+        android:layout_height="wrap_content"
+        android:text="3"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txt_item_list_classes_subject"
+        android:layout_width="0dp"
+        android:layout_weight="45"
+        android:layout_height="wrap_content"
+        android:text="DSA"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="14sp"/>
+    <TextView
+        android:id="@+id/txt_item_list_classes_del"
+        android:layout_width="0dp"
+        android:layout_weight="20"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_marginStart="10dp"
+        android:textColor="@android:color/holo_red_dark"
+        android:textSize="14sp"/>
+
+</LinearLayout>

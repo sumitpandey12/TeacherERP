@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/primary">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hii Deepti.."
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="HOD | Btech CSE 2nd Year"
+            android:textColor="#DCDCDC"
+            android:layout_marginBottom="20dp"/>
+
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp">
+
+        <ImageView
+            android:id="@+id/img_profile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </androidx.cardview.widget.CardView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/bg_curve" />
+
+    <LinearLayout
+        android:id="@+id/layout_attendence"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/button_storke"
+        android:layout_marginTop="170dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:src="@drawable/bg_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendence"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_addMarks"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/button_storke"
+        android:layout_marginTop="170dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:src="@drawable/bg_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Marks"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="15dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_4"
+        android:layout_below="@id/layout_addMarks"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/bg_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendence"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_3"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/layout_attendence"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/bg_login" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Attendence"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_6"
+        android:layout_below="@id/layout_4"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/bg_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendence"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_5"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/layout_3"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/bg_login" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Attendence"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_8"
+        android:layout_below="@id/layout_6"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="8dp"
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:src="@drawable/bg_login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Attendence"
+            android:textSize="16dp"
+            android:textColor="@color/black"
+            android:textStyle="normal"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_7"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/layout_5"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_stroke_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/bg_login" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Attendence"
+            android:textAlignment="viewStart"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/black"
+            android:textSize="16dp"
+            android:textStyle="normal" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
