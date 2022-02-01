@@ -27,7 +27,7 @@ public class SignUpActivity extends AppCompatActivity {
     LinearLayout layout1,layout2,layout3;
     TextInputEditText name,user,password;
     Button sbmt;
-    private static final String url = "http://10.0.2.2/LoginRegister/signup.php";
+    private static final String url = "http://192.168.1.77/LoginRegister/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,11 +118,12 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> param = new HashMap<String,String>();
-                param.put("tablename","Login");
+                param.put("tablename","teachers");
                 param.put("fullname",Mname);
                 param.put("username",uname);
                 param.put("password",pwd);
                 param.put("email",email);
+                param.put("type","signup");
                 return param;
             }
         };

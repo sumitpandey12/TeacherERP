@@ -27,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView NewUser;
     TextInputEditText txtUsername,txtPassword;
     Button btnLogin;
-    final String url = "http://10.0.2.2/LoginRegister/login.php";
+    final String url = "http://192.168.1.77/LoginRegister/login.php";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                 Map<String,String> param = new HashMap<String,String>();
                 param.put("username",username);
                 param.put("password",password);
+                param.put("type","login");
                 return param;
             }
         };
