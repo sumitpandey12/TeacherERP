@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -60,6 +61,14 @@ public class LoginActivity extends AppCompatActivity {
 
         final String username = txtUsername.getText().toString().trim();
         final String password = txtPassword.getText().toString().trim();
+
+        if (username.isEmpty()){
+            Toast.makeText(this, "Enter Username First", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (password.isEmpty()){
+            Toast.makeText(this, "Enter Password First", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {

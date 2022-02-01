@@ -23,7 +23,6 @@ public class ListItemAttendanceAdapter extends RecyclerView.Adapter<ListItemAtte
 
     public ListItemAttendanceModel[] attendanceModel;
     public Context context;
-    public ArrayList<ListItemAttendanceModel> updateModel = new ArrayList<>();
 
     public ListItemAttendanceAdapter(ArrayList<ListItemAttendanceModel> attendanceModel, Context context) {
         this.attendanceModel = attendanceModel.toArray(new ListItemAttendanceModel[0]);
@@ -88,10 +87,6 @@ public class ListItemAttendanceAdapter extends RecyclerView.Adapter<ListItemAtte
     @Override
     public int getItemCount() {
         return attendanceModel.length;
-    }
-
-    public ListItemAttendanceModel getItem(int position) {
-        return attendanceModel[position];
     }
 
     public ListItemAttendanceModel[] getAttendanceModel(){

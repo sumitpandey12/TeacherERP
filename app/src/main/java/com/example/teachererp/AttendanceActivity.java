@@ -2,6 +2,7 @@ package com.example.teachererp;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -51,8 +52,11 @@ import java.util.Map;
 
 public class AttendanceActivity extends AppCompatActivity implements View.OnClickListener {
 
-    ImageView expand;
-    TextView info,presentCount, absentCount, leaveCount,temp;
+    ImageView expand,back;
+    TextView info;
+    TextView presentCount;
+    TextView absentCount;
+    TextView leaveCount;
     LinearLayout layout_choose;
     RecyclerView recy_attendance;
     AutoCompleteTextView period,course,branch,semester;
@@ -60,6 +64,7 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
     ProgressBar progressBar, progressBar1, progressBar2;
     RelativeLayout relativeLayout1,relativeLayout2;
     RadioButton radioPresent, radioAbsent, radioLeave;
+    CardView cardView2;
 
     private static final String url = "http://192.168.1.77/LoginRegister/login.php";
 
@@ -179,7 +184,6 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
                             CountStatus(status);
                             SetStudentsAttendance(id, courseID, branchID, semesterID, periodID, date, status);
                         } else {
-                            Toast.makeText(AttendanceActivity.this, "Student ID :" + id + " status : " + status, Toast.LENGTH_SHORT).show();
                             remainStudent.add(new ListItemAttendanceModel(models[i].getId(), models[i].getName(), models[i].getCourse_id(), models[i].getBranch_id(), models[i].getSemester_id()));
                         }
                     }
@@ -210,19 +214,31 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                presentStudent=0;
+                absentStudent=0;
+                leaveStudent =0;
                 ListItemAttendanceModel[] models = attendanceAdapter.getAttendanceModel();
                 for (int i =0; i<models.length;i++){
                     String id = String.valueOf(models[i].getId());
                     String status = String.valueOf(models[i].getStatus());
                     if (Integer.parseInt(status)>0){
                         CountStatus(status);
-                        SetStudentsAttendance(id,courseID,branchID,semesterID,periodID,date,status);
+                        UpdateAttendance(id,periodID,date,status);
                     }
                 }
             }
         });
 
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AttendanceActivity.this, MainActivity.class));
+            }
+        });
+
         radioPresent.setOnClickListener(this);
+        radioAbsent.setOnClickListener(this);
+        radioLeave.setOnClickListener(this);
 
     }
 
@@ -231,7 +247,6 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(AttendanceActivity.this, response, Toast.LENGTH_SHORT).show();
                 relativeLayout1.setVisibility(View.VISIBLE);
                 relativeLayout2.setVisibility(View.GONE);
                 submit.setVisibility(View.GONE);
@@ -287,13 +302,10 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(AttendanceActivity.this, ""+response, Toast.LENGTH_SHORT).show();
                 if(response.equals("Already Attendance Submited")){
                     FetchAttendance(courseID,branchID,semesterID,periodID,date);
-                }else if(response.equals("Success")){
-                    FetchStudents(courseID,branchID,semesterID);
                 }else {
-                    info.setText(""+response);
+                    FetchStudents(courseID, branchID, semesterID);
                 }
             }
         }, new Response.ErrorListener() {
@@ -325,7 +337,7 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                temp.setText(""+response);
+                ShowStatusFragment();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -350,6 +362,7 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void ShowStatusFragment() {
+        cardView2.setVisibility(View.GONE);
         relativeLayout1.setVisibility(View.GONE);
         relativeLayout2.setVisibility(View.VISIBLE);
         absentCount.setText(String.valueOf(absentStudent));
@@ -373,7 +386,7 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
             @Override
             public void onResponse(String response) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(AttendanceActivity.this, ""+response, Toast.LENGTH_SHORT).show();
+
             }
         }, new Response.ErrorListener() {
             @Override
@@ -419,27 +432,28 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
         relativeLayout1= findViewById(R.id.relative_layout1);
         relativeLayout2= findViewById(R.id.relative_layout2);
         seeList = findViewById(R.id.btn_see_list);
-        temp = findViewById(R.id.txt_temp);
         btnUpdate = findViewById(R.id.mbtn_update);
         radioPresent = findViewById(R.id.radioPresent);
         radioAbsent = findViewById(R.id.radioAbsent);
         radioLeave = findViewById(R.id.radioLeave);
+        cardView2 = findViewById(R.id.card2);
+        back = findViewById(R.id.btn_back);
     }
 
     private void MarkAll(int a){
-        int count = attendanceAdapter.getItemCount();
-        Toast.makeText(this, ""+count, Toast.LENGTH_SHORT).show();
-//        while (count>=0){
-//            ListItemAttendanceModel item = attendanceAdapter.attendanceModel[count];
-//            if (a==1){
-//                item.setStatus(1);
-//            }else if (a==2){
-//                item.setStatus(2);
-//            }else if (a==3){
-//                item.setStatus(3);
-//            }
-//            count--;
-//        }
+        int count = (attendanceAdapter.getItemCount()-1);
+        while (count>=0){
+            ListItemAttendanceModel item = attendanceAdapter.attendanceModel[count];
+            if (a==1){
+                item.setStatus(1);
+            }else if (a==2){
+                item.setStatus(2);
+            }else if (a==3){
+                item.setStatus(3);
+            }
+            count--;
+        }
+        attendanceAdapter.notifyDataSetChanged();
     }
 
     private void FetchBranch(String course_id) {
@@ -636,6 +650,7 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
     }
 
     private void SetStudentsAdapterList(ArrayList<ListItemAttendanceModel> a) {
+        cardView2.setVisibility(View.VISIBLE);
         attendanceAdapter = new ListItemAttendanceAdapter(a,getApplicationContext());
         recy_attendance.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recy_attendance.setAdapter(attendanceAdapter);
@@ -654,11 +669,15 @@ public class AttendanceActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onClick(View view) {
-        if (radioPresent.equals(view)) {
+        if (view.equals(radioPresent)) {
             MarkAll(1);
-        } else if (radioAbsent.equals(view)) {
+            return;
+        }
+        if (view.equals(radioAbsent)) {
             MarkAll(2);
-        } else if (radioLeave.equals(view)) {
+            return;
+        }
+        if (view.equals(radioLeave)) {
             MarkAll(3);
         }
     }
