@@ -53,10 +53,11 @@
         android:layout_marginStart="10dp"
         android:textColor="@color/black"
         android:textSize="14sp"/>
-    <TextView
+    <ImageView
         android:id="@+id/txt_item_list_classes_del"
         android:layout_width="0dp"
         android:layout_weight="20"
+        android:src="@drawable/ic_delete"
         android:layout_height="wrap_content"
         android:text="Delete"
         android:layout_marginStart="10dp"
