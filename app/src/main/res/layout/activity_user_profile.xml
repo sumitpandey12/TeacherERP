@@ -8,75 +8,80 @@
     android:background="@color/primary">
 
     <LinearLayout
+        android:id="@+id/layout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="100"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_arrow_back"
             android:layout_gravity="center"
+            android:layout_weight="10"
             android:padding="10dp"
-            android:layout_weight="10"/>
+            android:src="@drawable/ic_arrow_back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="My Profile"
             android:layout_gravity="center"
+            android:layout_weight="70"
+            android:text="My Profile"
+            android:fontFamily="@font/source_sans_pro_semibold"
             android:textColor="@color/white"
-            android:textStyle="normal"
             android:textSize="14sp"
-            android:layout_weight="70"/>
+            android:textStyle="normal" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="20"
             android:background="@drawable/bg_curve"
             android:padding="5dp"
+            android:fontFamily="@font/source_sans_pro_semibold"
             android:text="Save"
-            android:layout_gravity="center"
             android:textAlignment="center"
             android:textColor="@color/primary"
             android:textSize="16sp"
-            android:textStyle="normal"
-            android:layout_weight="20"/>
+            android:textStyle="normal" />
 
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/layout1"
         android:layout_marginBottom="-20dp"
         android:background="@color/white"
         app:cardCornerRadius="20dp"
-        android:visibility="gone">
+        android:visibility="visible">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_margin="15dp">
+            android:layout_margin="10dp">
 
             <LinearLayout
+                android:id="@+id/layout2"
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="4dp"
+                android:padding="5dp"
                 android:background="@drawable/button_storke">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="10dp"
                     android:src="@drawable/ic_add_photo"
-                    android:layout_margin="20dp"
                     android:layout_gravity="center"/>
 
                 <LinearLayout
@@ -87,6 +92,7 @@
                     android:gravity="center">
 
                     <TextView
+                        android:id="@+id/txt_user_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Pro. Sumit Pandey"
@@ -95,6 +101,7 @@
                         android:textStyle="bold"/>
 
                     <TextView
+                        android:id="@+id/txt_user_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="+91 7870780048"
@@ -109,6 +116,7 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etxt_designation"
+                android:layout_below="@id/layout2"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,6 +130,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
+                android:id="@+id/txt_list_classes"
+                android:layout_below="@id/etxt_designation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="List Your Classes"
@@ -131,8 +141,11 @@
                 android:layout_marginTop="15dp"/>
 
             <LinearLayout
+                android:id="@+id/layout3"
+                android:layout_below="@id/txt_list_classes"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_above="@id/txt_add_class"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/button_storke">
 
@@ -145,6 +158,8 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/txt_add_class"
+                android:layout_above="@id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Add Your Classes"
@@ -153,176 +168,190 @@
                 android:textStyle="normal"
                 android:layout_marginTop="15dp"/>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/button_storke"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:layout_alignParentBottom="true"
+                android:elevation="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="12dp">
 
                 <LinearLayout
+                    android:id="@+id/layout_choose"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="5"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:orientation="horizontal"
+                        android:weightSum="2">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Course"
-                            android:textSize="12sp"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"/>
-
-                        <Spinner
+                            android:orientation="vertical"
                             android:layout_marginTop="5dp"
-                            android:id="@+id/spinner_course"
-                            android:layout_width="wrap_content"
+                            android:layout_marginEnd="20dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Period"
+                                android:layout_marginStart="10dp"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:id="@+id/spinner_period"
+                                    android:textSize="15sp"
+                                    android:inputType="none"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:spinnerMode="dropdown"/>
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Course"
+                                android:layout_marginEnd="10dp"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:id="@+id/spinner_course1"
+                                    android:inputType="none"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="5"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:orientation="horizontal"
+                        android:weightSum="2"
+                        android:layout_marginTop="5dp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:text="Branch"
-                            android:textSize="12sp"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"/>
-
-                        <Spinner
+                            android:orientation="vertical"
                             android:layout_marginTop="5dp"
-                            android:id="@+id/spinner_branch"
-                            android:layout_width="wrap_content"
+                            android:layout_marginEnd="20dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Branch"
+                                android:layout_marginStart="10dp"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:id="@+id/spinner_branch"
+                                    android:inputType="none"
+                                    android:singleLine="true"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
-                            android:spinnerMode="dropdown"/>
+                            android:orientation="vertical"
+                            android:layout_marginTop="5dp">
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:hint="Semester"
+                                android:layout_marginEnd="10dp"
+                                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                                <AutoCompleteTextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="14sp"
+                                    android:id="@+id/spinner_semester"
+                                    android:inputType="none"/>
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+                        </LinearLayout>
 
                     </LinearLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Select Subject"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginEnd="10dp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+
+                        <AutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:id="@+id/spinner_subject"
+                            android:inputType="none"/>
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_add_subject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Add Subject"
+                        app:cornerRadius="8dp"
+                        app:iconSize="14sp"
+                        android:fontFamily="@font/source_sans_pro_semibold"/>
 
                 </LinearLayout>
 
-                <LinearLayout
+                <ProgressBar
+                    android:id="@+id/progress_bar_course"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="10"
-                    android:layout_marginTop="10dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="5"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Semester"
-                            android:textSize="12sp"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"/>
-
-                        <Spinner
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/spinner_semester"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:spinnerMode="dropdown"/>
-
-                    </LinearLayout>
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_weight="5"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="center">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Subject"
-                            android:textSize="12sp"
-                            android:textColor="@color/black"
-                            android:textStyle="normal"/>
-
-                        <Spinner
-                            android:layout_marginTop="5dp"
-                            android:id="@+id/spinner_Subject"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:spinnerMode="dropdown"/>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btn_add_subject"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:text="Add Subject"
-                    android:textSize="12sp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"/>
+                    android:layout_height="match_parent"
+                    android:padding="80dp"
+                    android:indeterminate="true"
+                    android:visibility="gone"
+                    android:indeterminateTintMode="src_atop"
+                    android:indeterminateTint="@color/primary"/>
 
 
+            </androidx.cardview.widget.CardView>
 
-            </LinearLayout>
-
-
-
-        </LinearLayout>
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="100dp"
-        android:padding="20dp">
-
-
-        <EditText
-            android:id="@+id/etxt_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="subject"/>
-        <EditText
-            android:id="@+id/etxt_designation1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="designation"/>
-        <EditText
-            android:id="@+id/etxt_salary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="salary"/>
-
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="insert"
-            android:background="@color/white"
-            android:id="@+id/btn_insert"/>
-
-    </LinearLayout>
-
 
 </RelativeLayout>
