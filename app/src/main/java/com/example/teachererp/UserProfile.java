@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,9 +33,11 @@ import com.example.teachererp.Model.BranchModel;
 import com.example.teachererp.Model.CoursesModel;
 import com.example.teachererp.Model.ListYourClassesModel;
 import com.example.teachererp.Model.SemesterModel;
+import com.example.teachererp.Model.SubjectModel;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.android.material.textview.MaterialTextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,197 +50,95 @@ import java.util.Map;
 
 public class UserProfile extends AppCompatActivity {
 
-    AutoCompleteTextView period,course,branch,semester;
-    MaterialButton btnAddSubject;
-    TextInputLayout etxtDesignation;
-    TextView name,email;
+    AutoCompleteTextView subject;
+    TextInputEditText eName,eDesignation,eEmail,ePhone;
+    TextView name,email,save;
     RecyclerView recyclerView;
     ProgressBar progressBar1;
+    TextInputLayout layout_subject;
+
+    MaterialTextView ChangeProfile;
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
+    SubjectModel item;
+
 
     private static final String url = "http://192.168.1.77/LoginRegister/login.php";
 
-    List<CoursesModel> coursesList;
-    List<BranchModel> branchModelList;
-    List<SemesterModel> semesterModelList;
+    List<SubjectModel> subjectModels;
 
-    String courseID,branchID,semesterID,periodID;
+    String branchID="0",subjectID = "0",teacher_id, StringName;
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
-    }
+
+/*    SharedPreferences Variable name
+    id = teacher id;
+    username = teacher username;
+    name = teacher name;
+    phone = teacher phone;
+    email = teacher email
+    subject = teacher subject
+*/
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
-
-        coursesList = new ArrayList<>();
-        branchModelList = new ArrayList<>();
-        semesterModelList = new ArrayList<>();
-
         Init();
 
-        FetchCourse();
+        sharedPreferences = getSharedPreferences("TeacherERP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        GetPreference();
 
-        course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        subjectModels = new ArrayList<>();
+
+        FetchSubject(branchID);
+
+        subject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CoursesModel coursesModel = (CoursesModel) adapterView.getItemAtPosition(i);
-                progressBar1.setVisibility(View.VISIBLE);
-                FetchBranch(String.valueOf(coursesModel.getId()));
-                FetchSem(String.valueOf(coursesModel.getId()));
-                courseID= String.valueOf(coursesModel.getId());
-                progressBar1.setVisibility(View.VISIBLE);
+                item = (SubjectModel) adapterView.getItemAtPosition(i);
+                subjectID = String.valueOf(item.getId());
+                Toast.makeText(UserProfile.this, ""+subjectID, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!((eName.getText().length()) >0)){
+                    eName.setFocusable(true);
+                    Toast.makeText(UserProfile.this, "Name Required", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (!((eDesignation.getText().length()) >0)){
+                    eDesignation.setFocusable(true);
+                    Toast.makeText(UserProfile.this, "Designation Required", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (!((eEmail.getText().length()) >0)){
+                    eEmail.setFocusable(true);
+                    Toast.makeText(UserProfile.this, "Email Required", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (!((ePhone.getText().length()) >=10)){
+                    ePhone.setFocusable(true);
+                    Toast.makeText(UserProfile.this, "Phone Not Correct", Toast.LENGTH_SHORT).show();
+                    return;
+                }else if (subjectID.equals("0")){
+                    subject.setFocusable(true);
+                    Toast.makeText(UserProfile.this, "Subject Required", Toast.LENGTH_SHORT).show();
+                    return;
+                } else{
+                    InsertTeacherProfile(teacher_id,eName.getText().toString(),eDesignation.getText().toString(),eEmail.getText().toString(),ePhone.getText().toString(),subjectID);
+                }
             }
         });
 
 
     }
 
-
-    private void FetchBranch(String course_id) {
-        branch.setText(null);
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-
-                    for (int i = 0; i < array.length(); i++) {
-
-                        JSONObject course = array.getJSONObject(i);
-
-                        branchModelList.add(new BranchModel(
-                                course.getInt("id"),
-                                course.getString("branch_name")
-                        ));
-                    }
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                progressBar1.setVisibility(View.GONE);
-                ArrayAdapter<BranchModel> adapter =
-                        new ArrayAdapter<BranchModel>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, branchModelList);
-
-                branch.setAdapter(adapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param = new HashMap<String,String>();
-                param.put("type","getbranch");
-                param.put("course_id", course_id);
-                return param;
-            }
-        };
-        Volley.newRequestQueue(this).add(request);
-    }
-
-    private void FetchCourse(){
-
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-
-                try {
-                    JSONArray array = new JSONArray(response);
-
-                    for (int i = 0; i < array.length(); i++) {
-
-                        JSONObject course = array.getJSONObject(i);
-
-                        coursesList.add(new CoursesModel(
-                                course.getInt("id"),
-                                course.getString("course_name")
-                        ));
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                progressBar1.setVisibility(View.GONE);
-                ArrayAdapter<CoursesModel> adapter =
-                        new ArrayAdapter<CoursesModel>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, coursesList);
-
-                course.setAdapter(adapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param = new HashMap<String,String>();
-                param.put("type","getcourse");
-                return param;
-            }
-        };
-        Volley.newRequestQueue(this).add(request);
-    }
-
-    private void FetchSem(String course_id){
-        semester.setText(null);
-        semesterModelList.clear();
-        StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-
-                    for (int i = 0; i < array.length(); i++) {
-
-                        JSONObject course = array.getJSONObject(i);
-
-                        semesterModelList.add(new SemesterModel(
-                                course.getInt("id"),
-                                course.getInt("semester")
-                        ));
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-                ArrayAdapter<SemesterModel> adapter =
-                        new ArrayAdapter<SemesterModel>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, semesterModelList);
-
-                semester.setAdapter(adapter);
-
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Nullable
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String,String> param = new HashMap<String,String>();
-                param.put("type","getsemester");
-                param.put("course_id", course_id);
-                return param;
-            }
-        };
-        Volley.newRequestQueue(this).add(request);
-    }
-
     private void FetchSubject(String branch_id){
-        semester.setText(null);
-        semesterModelList.clear();
+        subjectModels.clear();
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -248,19 +149,19 @@ public class UserProfile extends AppCompatActivity {
 
                         JSONObject course = array.getJSONObject(i);
 
-                        semesterModelList.add(new SemesterModel(
+                        subjectModels.add(new SubjectModel(
                                 course.getInt("id"),
-                                course.getInt("semester")
+                                course.getString("subject_name")
                         ));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
-                ArrayAdapter<SemesterModel> adapter =
-                        new ArrayAdapter<SemesterModel>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, semesterModelList);
+                ArrayAdapter<SubjectModel> adapter =
+                        new ArrayAdapter<SubjectModel>(getApplicationContext(),  android.R.layout.simple_spinner_dropdown_item, subjectModels);
 
-                semester.setAdapter(adapter);
+                subject.setAdapter(adapter);
 
 
             }
@@ -282,12 +183,13 @@ public class UserProfile extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 
-    private void InsertTeacherProfile(String desi, String course_id, String branch_id, String sem_id, String period, String subject_id){
+    private void InsertTeacherProfile(String teacher_id,String mname, String designation, String email, String phone, String subject_id){
 
         StringRequest request = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Toast.makeText(UserProfile.this, ""+response, Toast.LENGTH_SHORT).show();
+                SetPreference();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -299,12 +201,13 @@ public class UserProfile extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> param = new HashMap<>();
-                param.put("desig",desi);
-                param.put("course_id",course_id);
-                param.put("branch_id",branch_id);
-                param.put("semester_id",sem_id);
-                param.put("period",period);
+                param.put("type","UpdateTeacherDetails");
+                param.put("teacher_id",teacher_id);
                 param.put("subject_id",subject_id);
+                param.put("name",mname);
+                param.put("designation",designation);
+                param.put("email",email);
+                param.put("phone",phone);
                 return param;
             }
         };
@@ -312,16 +215,38 @@ public class UserProfile extends AppCompatActivity {
         Volley.newRequestQueue(this).add(request);
     }
 
+    private void SetPreference() {
+        editor.putString("designation",eDesignation.getText().toString());
+        editor.putString("phone",ePhone.getText().toString());
+        editor.putString("email",eEmail.getText().toString());
+        editor.putString("name",eName.getText().toString());
+        editor.putString("subject",item.getName());
+        editor.commit();
+    }
+
+    private void GetPreference(){
+        teacher_id = sharedPreferences.getString("teacher_id","0");
+        StringName = sharedPreferences.getString("name","Sumit Pandey");
+        eName.setText(StringName);
+        name.setText(StringName);
+        eEmail.setText(sharedPreferences.getString("email",""));
+        ePhone.setText(sharedPreferences.getString("phone",""));
+        eDesignation.setText(sharedPreferences.getString("designation",""));
+        layout_subject.setHint(sharedPreferences.getString("subject","Select Subject"));
+    }
+
     private void Init(){
-        period = findViewById(R.id.spinner_period);
-        course = findViewById(R.id.spinner_course1);
-        branch = findViewById(R.id.spinner_branch);
-        semester = findViewById(R.id.spinner_semester);
-        btnAddSubject = findViewById(R.id.btn_add_subject);
-        etxtDesignation = findViewById(R.id.etxt_designation);
+        subject = findViewById(R.id.spinner_subject);
+        eDesignation = findViewById(R.id.etxt_designation);
         name = findViewById(R.id.txt_user_name);
+        save = findViewById(R.id.txt_btn_save);
         email = findViewById(R.id.txt_user_email);
+        eName = findViewById(R.id.etxt_full_name);
+        eEmail = findViewById(R.id.etxt_email);
+        ePhone = findViewById(R.id.etxt_phone);
+        ChangeProfile = findViewById(R.id.txt_change_profile);
         recyclerView = findViewById(R.id.recy_list_classes);
         progressBar1 = findViewById(R.id.progress_bar_course);
+        layout_subject = findViewById(R.id.layout_subject);
     }
 }

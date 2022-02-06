@@ -4,6 +4,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,6 +30,8 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText txtUsername,txtPassword;
     Button btnLogin;
     final String url = "http://192.168.1.77/LoginRegister/login.php";
+    SharedPreferences sharedPreferences;
+    SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,16 @@ public class LoginActivity extends AppCompatActivity {
 
         NewUser = findViewById(R.id.txt_new_user);
         btnLogin = findViewById(R.id.btn_login);
+
+
+        //shared preference login data store
+        sharedPreferences = getSharedPreferences("TeacherERP",MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        if (sharedPreferences.getString("username","").length()>1){
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
+            finish();
+        }
 
         NewUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +61,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LoginActivity.this,UserProfile.class));
+                Login();
             }
         });
+
+
+
     }
 
     private void Login() {
@@ -76,6 +92,8 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 Toast.makeText(getApplicationContext(), ""+response, Toast.LENGTH_SHORT).show();
                 if (response.equals("Login Success")){
+                    editor.putString("username",username);
+                    editor.commit();
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     finish();
                 }

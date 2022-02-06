@@ -9,17 +9,20 @@
         <entry key="app/src/main/res/drawable/button_storke.xml" value="0.36615384615384616" />
         <entry key="app/src/main/res/drawable/button_stroke_bg.xml" value="0.36615384615384616" />
         <entry key="app/src/main/res/drawable/ic_add_photo.xml" value="0.36615384615384616" />
+        <entry key="app/src/main/res/layout/activity_add_teacher_subject.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/activity_attendence.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_pre_attendence.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.340625" />
         <entry key="app/src/main/res/layout/activity_user_profile.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/layout/fragment_first.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/fragment_pre_attendence.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_attendance_students.xml" value="0.35572916666666665" />
         <entry key="app/src/main/res/layout/item_dropdown.xml" value="0.35625" />
         <entry key="app/src/main/res/layout/item_list_classes.xml" value="0.35572916666666665" />
+        <entry key="app/src/main/res/menu/navigation_menu.xml" value="0.35625" />
       </map>
     </option>
   </component>
